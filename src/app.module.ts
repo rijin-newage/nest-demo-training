@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { Sequelize } from 'sequelize-typescript';
 import { AppController } from './app.controller';
+import { AppGateway } from './app.gateway';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/strategy/jwt-auth.guard';
@@ -50,6 +51,7 @@ import { UserModule } from './user/user.module';
       provide: APP_GUARD,
       useClass: RoleGuard,
     },
+    AppGateway,
   ],
 })
 export class AppModule implements NestModule, OnModuleInit {

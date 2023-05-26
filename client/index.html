@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io Demo</title>
+    <script
+      src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+      integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <input type="text" id="client-name" placeholder="Client Name" />
+    <button id="connect">Connect</button>
+    <script>
+      const connectBtn = document.getElementById('connect');
+
+      connectBtn.onclick = function () {
+        const clientName = document.getElementById('client-name').value;
+        const socket = io('http://localhost:3000', {
+          query: {
+            clientName,
+          },
+        });
+        socket.on('connect', function () {
+          console.log('conneted');
+          socket.emit('message', 'Hello server.');
+        });
+
+        socket.on('reply', function (data) {
+          console.log('reply received: ', data);
+        });
+      };
+    </script>
+  </body>
+</html>
